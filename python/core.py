@@ -1,4 +1,6 @@
 from enum import Enum
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 # Convenience functions
@@ -14,6 +16,7 @@ def set_algorithm(algorithm_type):
         return EpsilonGreedy(0.1, [], [])
     elif algorithm_type == "EXP3":
         return Exp3(0.2, [])
+
 
 # Need access to random numbers
 import random
@@ -36,3 +39,4 @@ from algorithms.hedge.hedge import *
 # # Testing frameworks
 from testing_framework.tests import *
 from utils.file import *
+from utils.plot import *
