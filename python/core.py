@@ -1,8 +1,19 @@
+from enum import Enum
+
+
 # Convenience functions
 def ind_max(x):
     m = max(x)
     return x.index(m)
 
+
+def set_algorithm(algorithm_type):
+    if algorithm_type == "UCB1":
+        return UCB1([], [])
+    elif algorithm_type == "EpsilonGreedy":
+        return EpsilonGreedy(0.1, [], [])
+    elif algorithm_type == "EXP3":
+        return Exp3(0.2, [])
 
 # Need access to random numbers
 import random
@@ -22,5 +33,6 @@ from algorithms.ucb.ucb2 import *
 from algorithms.exp3.exp3 import *
 from algorithms.hedge.hedge import *
 
-# # Testing framework
+# # Testing frameworks
 from testing_framework.tests import *
+from utils.file import *

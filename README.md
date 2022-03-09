@@ -1,5 +1,6 @@
 # Code to Accompany the Book "Bandit Algorithms for Website Optimization"
 
+
 This repo contains code in several languages that implements several standard algorithms for solving the Multi-Armed Bandits Problem, including:
 
 * epsilon-Greedy
@@ -13,11 +14,8 @@ It also contains code that provides a testing framework for bandit algorithms ba
 
 # Languages
 
-This codebase is split up by language. In most languages, there are parallel implementations of the core algorithms and infrastructure for testing the algorithms:
-
-* Python
-* Julia
-* Ruby
+##  Requirement
+- python 2.7
 
 In R, there is a body of code for visualizing the results of simulations and analyzing those results. The R code would benefit from some refactoring to make it DRYer.
 
@@ -37,21 +35,17 @@ For a Flask implementation, see https://github.com/DeaconDesperado/flask_mab
 
 # Getting Started
 
-To try out this code, you can go into the Python or Julia directories and then run the demo script.
+To try out this code, you can go into the Python directories and then run the demo script.
 
 In Python, that looks like:
 
-    python demo.py
-
-In Julia, that looks like:
-
-    julia demo.jl
+    python demo1.py
 
 You should step through that code line-by-line to understand what the functions are doing. The book provides more in-depth explanations of how the algorithms work.
 
 The Ruby code was contributed by Kashif Rasul. If you're interested in translating the code into another language, please submit a pull request. I will merge any new implementations as soon as I can.
 
-# Adding New Algorithms: API Expectations
+# How To Adding New Algorithms: API Expectations
 
 As described in the book, a Bandit algorithm should implement two methods:
 

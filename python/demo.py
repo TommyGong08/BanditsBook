@@ -1,11 +1,11 @@
 # coding=utf-8
-from algorithms.epsilon_greedy.standard import EpsilonGreedy
-from algorithms.exp3.exp3 import Exp3
-from algorithms.softmax.standard import Softmax
-from algorithms.ucb.ucb1 import UCB1
-from arms.bernoulli import BernoulliArm
-from arms.normal import NormalArm
-from testing_framework.tests import test_algorithm
+# from algorithms.epsilon_greedy.standard import EpsilonGreedy
+# from algorithms.exp3.exp3 import Exp3
+# from algorithms.softmax.standard import Softmax
+# from algorithms.ucb.ucb1 import UCB1
+# from arms.bernoulli import BernoulliArm
+# from arms.normal import NormalArm
+# from testing_framework.tests import test_algorithm
 
 execfile("core.py")
 

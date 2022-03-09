@@ -6,6 +6,8 @@ def test_algorithm(algo, arms, num_sims, horizon):
     sim_nums = [0.0 for i in range(num_sims * horizon)]
     times = [0.0 for i in range(num_sims * horizon)]
 
+    best_sim = 0
+    best_cumulative_reward = -1
     for sim in range(num_sims):
         sim = sim + 1
         algo.initialize(len(arms))
@@ -28,5 +30,8 @@ def test_algorithm(algo, arms, num_sims, horizon):
                 cumulative_rewards[index] = cumulative_rewards[index - 1] + reward
 
             algo.update(chosen_arm, reward)
+        if cumulative_rewards[sim * horizon-1] > best_cumulative_reward:
+            best_cumulative_reward = cumulative_rewards[sim * horizon - 1]
+            best_sim = sim
     # 依次返回： 仿真次数， 步数，所选择的臂， 奖励， 累计奖励
-    return [sim_nums, times, chosen_arms, rewards, cumulative_rewards]
+    return [sim_nums, times, chosen_arms, rewards, cumulative_rewards], best_sim
