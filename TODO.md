@@ -1,3 +1,0 @@
--[ ] add ETC algorithm
--[ ] input arms number and algorithm as param
--[x] plot renderings using matplotlib

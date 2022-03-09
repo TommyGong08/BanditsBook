@@ -66,3 +66,8 @@ If you would like to implement your own Environment, you will need to provide a 
 
 * `arms()`: A method that returns the array of arms that exist at time T. You must pass T as an argument.
 * `n_arms()`: A method that returns the number of arms that the environment will return with each call to `arms()`. While the arms may change over time, the number of arms should not. No arguments are required.
+
+#  TODO
+-[ ] add Explore-Then-Commit(ETC) algorithm
+-[ ] input arms number and algorithm as param
+-[x] plot renderings using matplotlib
