@@ -1,7 +1,6 @@
 .DS_Store
 *csv
 *tsv
-*pdf
 *pyc
 .idea
 data
