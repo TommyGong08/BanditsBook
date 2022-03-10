@@ -6,7 +6,7 @@ execfile("core.py")
 if __name__ == '__main__':
     task_name = "task1"
 
-    horizon = 2500
+    horizon = 1000
     n_arms = 10
     best_arms_number = random.randint(0, n_arms)
     print("the best arm is : No. {a}".format(a=best_arms_number))
