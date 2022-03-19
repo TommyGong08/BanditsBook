@@ -9,6 +9,7 @@ This repo contains code in several languages that implements several standard al
 * UCB2
 * Hedge
 * Exp3
+* ETC
 
 It also contains code that provides a testing framework for bandit algorithms based around simple Monte Carlo simulations.
 
