@@ -1,4 +1,4 @@
-execfile("core.py")
+import core
 from algorithms.ucb.ucb2 import *
 import random
 
@@ -6,13 +6,13 @@ random.seed(1)
 means = [0.1, 0.1, 0.1, 0.1, 0.9]
 n_arms = len(means)
 random.shuffle(means)
-arms = map(lambda (mu): BernoulliArm(mu), means)
+arms = map(lambda (mu): core.BernoulliArm(mu), means)
 print("Best arm is " + str(ind_max(means)))
 
 for alpha in [0.1, 0.3, 0.5, 0.7, 0.9]:
     algo = UCB2(alpha, [], [])
     algo.initialize(n_arms)
-    results = test_algorithm(algo, arms, 5000, 250)
+    results = core.test_algorithm(algo, arms, 5000, 250)
 
     f = open("algorithms/ucb/ucb2_results_%s.tsv" % alpha, "w")
 

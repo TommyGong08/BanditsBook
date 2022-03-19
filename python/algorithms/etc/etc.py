@@ -19,11 +19,13 @@ class ETC():
         self.values = [0.0 for col in range(n_arms)]  # 每种算法在每个臂上获得的奖励
         return
 
-    def select_arm(self):  # 以1-epsilon的概率选择最优的动作
-        if random.random() > self.epsilon:
+    def select_arm(self):
+        n_arms = len(self.counts)  # 臂的数量K
+        total_counts = sum(self.counts)  # 当前执行的轮数t
+        if total_counts > n_arms * self.m:
             return ind_max(self.values)
-        else:  # 以ε的概率随机选择
-            return random.randrange(len(self.values))
+        else:  # t mod k +1
+            return total_counts % n_arms
 
     def update(self, chosen_arm, reward):
         self.counts[chosen_arm] = self.counts[chosen_arm] + 1

@@ -15,7 +15,7 @@ class EpsilonGreedy():
         return
 
     def initialize(self, n_arms):
-        self.counts = [0 for col in range(n_arms)]  # 每种算法在每个臂上的执行次数
+        self.counts = [0 for col in range(n_arms)]  # 每种算法在每个臂上的执行次数， 数组长度为臂的数量
         self.values = [0.0 for col in range(n_arms)]  # 每种算法在每个臂上获得的奖励
         return
 
