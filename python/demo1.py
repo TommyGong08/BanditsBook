@@ -1,6 +1,7 @@
+# coding=utf-8
 import numpy as np
 import random
-execfile("core.py")
+import core
 
 
 if __name__ == '__main__':
@@ -13,18 +14,18 @@ if __name__ == '__main__':
 
     means = 10 * [0.1]
     means[best_arms_number - 1] = 0.9
-    arms = map(lambda (mu): BernoulliArm(mu), means)
+    arms = map(lambda (mu): core.BernoulliArm(mu), means)
 
     # set algorithms
     algorithm_types = ["UCB1", "EpsilonGreedy"]
     for algo in algorithm_types:
         algorithm_type = algo
-        algo = set_algorithm(algorithm_type)
+        algo = core.set_algorithm(algorithm_type)  # core中返回相应算法的结构体
         algo.initialize(n_arms)
-        results = test_algorithm(algo, arms, 5, horizon)
+        results = core.test_algorithm(algo, arms, 5, horizon)
 
         # save result
-        save_result(task_name, algorithm_type, results)
+        core.save_result(task_name, algorithm_type, results)
         print("#####")
     # plot
-    plot_task(task_name, algorithm_types, 5, horizon)
+    core.plot_task(task_name, algorithm_types, 5, horizon)
