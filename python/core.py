@@ -14,6 +14,8 @@ def set_algorithm(algorithm_type):
         return UCB1([], [])
     elif algorithm_type == "EpsilonGreedy":
         return EpsilonGreedy(0.1, [], [])
+    elif algorithm_type == "ETC":
+        return ETC(10000, [], [])
     elif algorithm_type == "EXP3":
         return Exp3(0.2, [])
 

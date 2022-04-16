@@ -16,7 +16,7 @@ It also contains code that provides a testing framework for bandit algorithms ba
 # Languages
 
 ##  Requirement
-- python 2.7
+- python 3.6  
 
 In R, there is a body of code for visualizing the results of simulations and analyzing those results. The R code would benefit from some refactoring to make it DRYer.
 
@@ -72,3 +72,4 @@ If you would like to implement your own Environment, you will need to provide a 
 - [x] add Explore-Then-Commit(ETC) algorithm  
 - [ ] input arms number and algorithm as param  
 - [x] plot renderings using matplotlib  
+- [x] plot regret

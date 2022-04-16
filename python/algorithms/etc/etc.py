@@ -34,4 +34,3 @@ class ETC():
         value = self.values[chosen_arm]
         new_value = ((n - 1) / float(n)) * value + (1 / float(n)) * reward
         self.values[chosen_arm] = new_value
-        return
