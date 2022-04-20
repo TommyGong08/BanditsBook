@@ -20,7 +20,7 @@ To try out this code, you can go into the Python directories and then run the de
 
 In Python, that looks like:
 
-    python demo1.py
+    python task.py
 
 You should step through that code line-by-line to understand what the functions are doing. The book provides more in-depth explanations of how the algorithms work.
 
