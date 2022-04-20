@@ -2,38 +2,38 @@
 import matplotlib.pyplot as plt
 
 
-def plot_lines(results, horizon, algorithm_types):
+def plot_lines(results, start, end, algorithm_types):
     """
     :param results: 多条曲线的纵坐标
     :param x: 横坐标
     :return: None
     """
     plt.subplot(1, 2, 1)
-    x = [i for i in range(horizon)]
+    x = [i for i in range(start, end)]
     for result in results:
-        plt.plot(x, result, linewidth=2.0, label=algorithm_types[results.index(result)])
+        plt.plot(x, result[start:end], linewidth=2.0, label=algorithm_types[results.index(result)])
     plt.xlabel("horizon")
     plt.ylabel("cumulative reward")
     plt.legend()
 
 
-def plot_regret(results, horizon, algorithm_types):
+def plot_regret(results, start, end, algorithm_types):
     """
         :param results: 多条曲线的纵坐标
         :param x: 横坐标
         :return: None
         """
     plt.subplot(1, 2, 2)
-    x = [i for i in range(horizon)]
+    x = [i for i in range(start, end)]
     for result in results:
-        plt.plot(x, result, linewidth=2.0, label=algorithm_types[results.index(result)])
+        plt.plot(x, result[start:end], linewidth=2.0, label=algorithm_types[results.index(result)])
     plt.xlabel("horizon")
     plt.ylabel("regrets")
     plt.legend()
     plt.show()
 
 
-def plot_task(task_name, algorithm_types, n_sim, horizon):
+def plot_task(task_name, algorithm_types, n_sim, start, end, horizon=1000000):
     global best_sim
     results = []
     max_rewards = []
@@ -60,10 +60,11 @@ def plot_task(task_name, algorithm_types, n_sim, horizon):
         results.append(cum_reward)
         max_rewards.append(best_reward)
 
-    plot_lines(results, horizon, algorithm_types)
-    plot_regret(max_rewards, horizon, algorithm_types)
+    plot_lines(results, start, end, algorithm_types)
+    plot_regret(max_rewards, start, end, algorithm_types)
     plt.show()
 
 
 if __name__ == '__main__':
-    plot_task("task_delta_0.4-0.7_10arms_Bernoulli_1000000_ETCm1000", ["UCB1", "EpsilonGreedy", "ETC"], 5, 100000)
+    plot_task("task_delta_0.7-0.9_10arms_Bernoulli_1000000_ETCm10000", ["UCB1", "EpsilonGreedy", "ETC"], 5, \
+              start=0, end=10000, horizon=1000000)
