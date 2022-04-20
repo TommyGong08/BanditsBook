@@ -2,22 +2,46 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-from bandit import Bandit
+from bandit import ETC, Epsilon_Greedy, UCB1, Gradient
 from simulation import simulate
 
 
 # 作奖励分布的图
-def figure_2_1():
+def figure_reward_distribution():
     plt.violinplot(dataset=np.random.randn(200, 10) + np.random.randn(10))
     plt.xlabel("action")
     plt.ylabel("reward distribution")
     plt.show()
 
 
+# ETC调参实验
+def figure_ETC(runs=2000, time=1000):
+    ms = [5, 20, 50]
+    bandits = [ETC(k_arm=10, M=m, initial=0., step_size=0.1, sample_averages=0) for m in ms]
+    best_action_counts, rewards = simulate(runs, time, bandits)
+
+    plt.figure(figsize=(10, 20))
+
+    plt.subplot(2, 1, 1)
+    for m, rewards in zip(ms, rewards):
+        plt.plot(rewards, label='m = %.02f' % (m))
+    plt.xlabel('steps')
+    plt.ylabel('average reward')
+    plt.legend()
+
+    plt.subplot(2, 1, 2)
+    for m, counts in zip(ms, best_action_counts):
+        plt.plot(counts, label='m = %.02f' % (m))
+    plt.xlabel('steps')
+    plt.ylabel('% optimal action')
+    plt.legend()
+    plt.show()
+
+
 # epsilon调参实验
-def figure_2_2(runs=2000, time=1000):
+def figure_epsilon_greedy(runs=2000, time=1000):
     epsilons = [0, 0.1, 0.01]
-    bandits = [Bandit(epsilon=eps, sample_averages=True) for eps in epsilons]
+    bandits = [Epsilon_Greedy(epsilon=eps, sample_averages=1) for eps in epsilons]
     best_action_counts, rewards = simulate(runs, time, bandits)
 
     plt.figure(figsize=(10, 20))
@@ -40,8 +64,8 @@ def figure_2_2(runs=2000, time=1000):
 
 # 乐观初始值测试
 # 乐观值设定会让每个动作在收敛之前都被尝试很多次
-def figure_2_3(runs=2000, time=1000):
-    bandits = [Bandit(epsilon=0, initial=5, step_size=0.1), Bandit(epsilon=0.1, initial=0, step_size=0.1)]
+def figure_positive_init(runs=2000, time=1000):
+    bandits = [Epsilon_Greedy(epsilon=0, initial=5, step_size=0.1), Epsilon_Greedy(epsilon=0.1, initial=0, step_size=0.1)]
     # 实验对照组
     best_action_counts, _ = simulate(runs, time, bandits)
 
@@ -54,9 +78,9 @@ def figure_2_3(runs=2000, time=1000):
 
 
 # UCB测试
-def figure_2_4(runs=2000, time=1000):
-    bandits = [Bandit(epsilon=0, UCB_param=2, sample_averages=True), \
-               Bandit(epsilon=0.1, sample_averages=True)]
+def figure_UCB1(runs=2000, time=1000):
+    bandits = [UCB1(UCB_param=2, sample_averages=1), \
+               Epsilon_Greedy(epsilon=0.1, sample_averages=1)]
     _, average_rewards = simulate(runs, time, bandits)
 
     plt.plot(average_rewards[0], label='UCB c = 2')
@@ -68,12 +92,12 @@ def figure_2_4(runs=2000, time=1000):
 
 
 # 梯度Bandit
-def figure_2_5(runs=2000, time=1000):
+def figure_gradient_bandit(runs=2000, time=1000):
     bandits = []
-    bandits.append(Bandit(gradient=True, step_size=0.1, gradient_baseline=True, true_reward=4))
-    bandits.append(Bandit(gradient=True, step_size=0.1, gradient_baseline=False, true_reward=4))
-    bandits.append(Bandit(gradient=True, step_size=0.4, gradient_baseline=True, true_reward=4))
-    bandits.append(Bandit(gradient=True, step_size=0.4, gradient_baseline=False, true_reward=4))
+    bandits.append(Gradient(sample_averages=2, step_size=0.1, gradient_baseline=True, true_reward=4))
+    bandits.append(Gradient(sample_averages=2, step_size=0.1, gradient_baseline=False, true_reward=4))
+    bandits.append(Gradient(sample_averages=2, step_size=0.4, gradient_baseline=True, true_reward=4))
+    bandits.append(Gradient(sample_averages=2, step_size=0.4, gradient_baseline=False, true_reward=4))
     best_action_counts, _ = simulate(runs, time, bandits)
     labels = ['alpha = 0.1, with baseline',
               'alpha = 0.1, without baseline',
@@ -89,4 +113,4 @@ def figure_2_5(runs=2000, time=1000):
 
 
 if __name__ == '__main__':
-    figure_2_3()
+    figure_epsilon_greedy()

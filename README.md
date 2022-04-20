@@ -4,35 +4,15 @@
 This repo contains code in several languages that implements several standard algorithms for solving the Multi-Armed Bandits Problem, including:
 
 * epsilon-Greedy
-* Softmax (Boltzmann)
 * UCB1
-* UCB2
-* Hedge
-* Exp3
 * ETC
 
-It also contains code that provides a testing framework for bandit algorithms based around simple Monte Carlo simulations.
 
 # Languages
 
 ##  Requirement
 - python 3.6  
 
-In R, there is a body of code for visualizing the results of simulations and analyzing those results. The R code would benefit from some refactoring to make it DRYer.
-
-If you're interested in seeing how some of these algorithms would be implemented in Javascript, you should try out Mark Reid's code: http://mark.reid.name/code/bandits/
-
-If you're looking for Java code, try Dani Sola's work: https://github.com/danisola/bandit
-
-If you're looking for Scala code, try everpeace(Shingo Omura)'s work: https://github.com/everpeace/banditsbook-scala
-
-If you're looking for Go code, try Rany Keddo's work: https://github.com/purzelrakete/bandit
-
-If you're looking for Clojure code, try Paul Ingles's work: https://github.com/pingles/clj-bandit
-
-If you're looking for Swift code, see https://github.com/crenwick/Swiper
-
-For a Flask implementation, see https://github.com/DeaconDesperado/flask_mab
 
 # Getting Started
 
@@ -48,29 +28,46 @@ The Ruby code was contributed by Kashif Rasul. If you're interested in translati
 
 # How To Adding New Algorithms: API Expectations
 
-As described in the book, a Bandit algorithm should implement two methods:
+All the algorithms are written in **bandit.py**. 
+The parent class is **Bandit()** and if you would like to test your own algorithms, please written a new class inherited the parent class.  
 
-* `select_arm()`: A method that returns the index of the Arm that the Bandit object selects on the current play. No arguments are required.
-* `update()`: A method that updates the internal state of the Bandit object in response to its most recently selected arm's reward. The index of the chosen arm and the amount of reward received must be passed as arguments.
+#### For example
+```python
 
-As described in the book, an Arm simulator should implement:
+class Bandit:
+    def __init__(self, k_arm=10, initial=0., step_size=0.1, sample_averages=False):
+        self.k = k_arm
+        self.step_size = step_size
+        self.sample_averages = sample_averages 
+        self.indices = np.arange(self.k) 
+        self.initial = initial  
 
-* `draw()`: A method that returns a single instance of reward from the arm that was pulled. No arguments are required.
+    def step(self):
+        ...
 
-In addition, the Bandit algorithms are designed to implement one additional method used in simulations:
+class Epsilon_Greedy(Bandit):
+    def __init__(self, k_arm=10, epsilon=0., initial=0., step_size=0.1, sample_averages=False):
+        Bandit.__init__(k_arm, initial, step_size, sample_averages)
+        self.epsilon = epsilon  
 
-* `initialize()`: A method that returns nothing. Instead, this method resets all of the data-driven variables in a Bandit object. For most objects, this resets the counts and values field to their initial states. No arguments are required.
+    def act(self):
+        ...
+```
 
-Beyond the testing framework described in the book, I am currently providing an additional system built around the concept of an Environment. Environment objects encapsulate not only a set of Arms, but also a mechanism for having those Arms change over time. This allows you to simulate complex scenarios that aren't well described by a constant set of arms.
 
-If you would like to implement your own Environment, you will need to provide a very simple interface. The Environment interface requries you to implement two methods:
+# Reference
+In R, there is a body of code for visualizing the results of simulations and analyzing those results. The R code would benefit from some refactoring to make it DRYer.
 
-* `arms()`: A method that returns the array of arms that exist at time T. You must pass T as an argument.
-* `n_arms()`: A method that returns the number of arms that the environment will return with each call to `arms()`. While the arms may change over time, the number of arms should not. No arguments are required.
+If you're interested in seeing how some of these algorithms would be implemented in Javascript, you should try out Mark Reid's code: http://mark.reid.name/code/bandits/
 
-#  TODO  
-- [ ] plot optimal action rate
-- [ ] input arms number and algorithm as param  
-- [x] add Explore-Then-Commit(ETC) algorithm  
-- [x] plot renderings using matplotlib  
-- [x] plot regret
+If you're looking for Java code, try Dani Sola's work: https://github.com/danisola/bandit
+
+If you're looking for Scala code, try everpeace(Shingo Omura)'s work: https://github.com/everpeace/banditsbook-scala
+
+If you're looking for Go code, try Rany Keddo's work: https://github.com/purzelrakete/bandit
+
+If you're looking for Clojure code, try Paul Ingles's work: https://github.com/pingles/clj-bandit
+
+If you're looking for Swift code, see https://github.com/crenwick/Swiper
+
+For a Flask implementation, see https://github.com/DeaconDesperado/flask_mab
